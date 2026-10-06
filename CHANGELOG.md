@@ -1,6 +1,13 @@
 CHANGELOG
 =========
 
+## 0.3.1 (2026-10-06)
+
+- Kurrent Cloud API requests now identify the Pulumi provider in their User-Agent, as
+  `terraform-provider-kurrentcloud/<terraform provider version> Terraform/pulumi-kurrentcloud-<version> ...`.
+  They previously sent `terraform-provider-kurrentcloud/dev Terraform/unknown`.
+- The Registry overview page shows how to install the provider plugin with `pulumi plugin install`.
+
 ## 0.3.0 (2026-10-06)
 
 **Rebranded from `eventstorecloud` to `kurrentcloud`** to match the Kurrent Cloud Terraform provider.

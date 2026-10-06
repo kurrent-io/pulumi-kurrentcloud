@@ -36,6 +36,15 @@ pulumi package add kurrentcloud
 {{% /choosable %}}
 {{< /chooser >}}
 
+Each SDK downloads the provider plugin the first time a program runs. To install it ahead of time, for example in a CI image:
+
+```bash
+# The latest release
+pulumi plugin install resource kurrentcloud --server github://api.github.com/kurrent-io
+# A specific release
+pulumi plugin install resource kurrentcloud v0.3.1 --server github://api.github.com/kurrent-io
+```
+
 ## Example Usage
 
 Each program creates a Kurrent Cloud project. Configure the provider first:
