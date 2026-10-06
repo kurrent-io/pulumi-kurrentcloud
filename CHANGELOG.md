@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-## 0.3.0 (unreleased)
+## 0.3.0 (2026-10-06)
 
 **Rebranded from `eventstorecloud` to `kurrentcloud`** to match the Kurrent Cloud Terraform provider.
 
