@@ -7,6 +7,12 @@ jobs:
   build_and_deploy:
     name: build and publish
     runs-on: ubuntu-latest
+    permissions:
+      # GoReleaser creates the GitHub release.
+      contents: write
+      # Lets NuGet/login exchange a GitHub OIDC token for a short-lived nuget.org
+      # API key (trusted publishing), so no NuGet key is stored in the repo.
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -41,9 +47,17 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # The temporary key is valid for one hour and one exchange, so log in right
+      # before the push rather than at the start of the job.
+      - name: NuGet login (trusted publishing)
+        id: nuget_login
+        uses: NuGet/login@v1
+        with:
+          # nuget.org profile name (not email) of the trusted-publishing policy owner.
+          user: ${{ vars.NUGET_USER }}
       - name: Push NuGet package
         run: |
-          dotnet nuget push nuget/**/*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.PULUMI_NUGET_KEY }}
+          dotnet nuget push nuget/**/*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ steps.nuget_login.outputs.NUGET_API_KEY }}
       - name: Publish NPM package
         run: (cd ${{ github.workspace }}/sdk/nodejs/bin && yarn publish --access public)
         env:
