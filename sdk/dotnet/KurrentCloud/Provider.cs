@@ -22,6 +22,12 @@ namespace Kurrent.Pulumi.KurrentCloud
         [Output("clientId")]
         public Output<string> ClientId { get; private set; } = null!;
 
+        [Output("clientSecret")]
+        public Output<string?> ClientSecret { get; private set; } = null!;
+
+        [Output("identityKitUrl")]
+        public Output<string?> IdentityKitUrl { get; private set; } = null!;
+
         [Output("identityProviderUrl")]
         public Output<string> IdentityProviderUrl { get; private set; } = null!;
 
@@ -58,6 +64,7 @@ namespace Kurrent.Pulumi.KurrentCloud
                 PluginDownloadURL = "github://api.github.com/kurrent-io",
                 AdditionalSecretOutputs =
                 {
+                    "clientSecret",
                     "token",
                 },
             };
@@ -72,6 +79,21 @@ namespace Kurrent.Pulumi.KurrentCloud
     {
         [Input("clientId", required: true)]
         public Input<string> ClientId { get; set; } = null!;
+
+        [Input("clientSecret")]
+        private Input<string>? _clientSecret;
+        public Input<string>? ClientSecret
+        {
+            get => _clientSecret;
+            set
+            {
+                var emptySecret = Output.CreateSecret(0);
+                _clientSecret = Output.Tuple<Input<string>?, int>(value, emptySecret).Apply(t => t.Item1);
+            }
+        }
+
+        [Input("identityKitUrl")]
+        public Input<string>? IdentityKitUrl { get; set; }
 
         [Input("identityProviderUrl", required: true)]
         public Input<string> IdentityProviderUrl { get; set; } = null!;

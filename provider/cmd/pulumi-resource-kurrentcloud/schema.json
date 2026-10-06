@@ -67,6 +67,13 @@
             "clientId": {
                 "type": "string"
             },
+            "clientSecret": {
+                "type": "string",
+                "secret": true
+            },
+            "identityKitUrl": {
+                "type": "string"
+            },
             "identityProviderUrl": {
                 "type": "string"
             },
@@ -99,6 +106,13 @@
             "clientId": {
                 "type": "string"
             },
+            "clientSecret": {
+                "type": "string",
+                "secret": true
+            },
+            "identityKitUrl": {
+                "type": "string"
+            },
             "identityProviderUrl": {
                 "type": "string"
             },
@@ -126,6 +140,13 @@
         ],
         "inputProperties": {
             "clientId": {
+                "type": "string"
+            },
+            "clientSecret": {
+                "type": "string",
+                "secret": true
+            },
+            "identityKitUrl": {
                 "type": "string"
             },
             "identityProviderUrl": {
