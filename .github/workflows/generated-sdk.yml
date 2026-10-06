@@ -9,6 +9,7 @@ on:
       - "provider/**"
       - "sdk/**"
       - "Makefile"
+      - "readme/**"
       - ".github/workflows/generated-sdk.yml"
 
 jobs:

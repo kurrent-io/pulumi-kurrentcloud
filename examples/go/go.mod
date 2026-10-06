@@ -3,7 +3,7 @@ module kurrent-sample-go
 go 1.24
 
 require (
-	github.com/kurrent-io/pulumi-kurrentcloud/sdk v1.0.0
+	github.com/kurrent-io/pulumi-kurrentcloud/sdk v0.0.0-00010101000000-000000000000
 	github.com/pulumi/pulumi-gcp/sdk/v6 v6.12.0
 	github.com/pulumi/pulumi/sdk/v3 v3.173.0
 )
