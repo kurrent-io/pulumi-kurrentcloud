@@ -16,10 +16,13 @@ package eventstorecloud
 
 import (
 	"path/filepath"
+	"runtime/debug"
 	"strings"
 	"unicode"
 
+	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/kurrent-io/pulumi-kurrentcloud/provider/pkg/version"
+	"github.com/kurrent-io/terraform-provider-kurrentcloud/v2/client"
 	"github.com/kurrent-io/terraform-provider-kurrentcloud/v2/esc"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
@@ -75,6 +78,31 @@ func legacyAliases(typ string) []tfbridge.AliasInfo {
 	return []tfbridge.AliasInfo{{Type: &tok}}
 }
 
+// tfProviderModule is the Go module of the bridged Terraform provider.
+const tfProviderModule = "github.com/kurrent-io/terraform-provider-kurrentcloud/v2"
+
+// setUserAgent makes Kurrent Cloud API requests identify the Pulumi provider. The Terraform
+// client builds every request's User-Agent as
+// "terraform-provider-kurrentcloud/<client.Version> Terraform/<TerraformVersion> Go/...".
+// Neither value is set when the provider is bridged: client.Version is stamped only by the
+// Terraform provider's own release build, and the bridge never sets TerraformVersion, so the
+// plugin would send "terraform-provider-kurrentcloud/dev Terraform/unknown".
+func setUserAgent(tfProvider *schema.Provider) {
+	// The Terraform provider version actually compiled in, as Go recorded it in the binary.
+	if info, ok := debug.ReadBuildInfo(); ok {
+		for _, dep := range info.Deps {
+			if dep.Path == tfProviderModule {
+				client.Version = dep.Version
+				break
+			}
+		}
+	}
+	// The configure function copies TerraformVersion into the client, which then names the
+	// Pulumi provider in the place of the Terraform version. A product token cannot contain
+	// "/", hence the "-".
+	tfProvider.TerraformVersion = "pulumi-kurrentcloud-" + strings.TrimPrefix(version.Version, "v")
+}
+
 // preConfigureCallback is called before the providerConfigure function of the underlying provider.
 // It should validate that the provider can be configured, and provide actionable errors in the case
 // it cannot be. Configuration variables can be read from `vars` using the `stringValue` function -
@@ -103,6 +131,7 @@ func Provider() tfbridge.ProviderInfo {
 			delete(tfProvider.DataSourcesMap, name)
 		}
 	}
+	setUserAgent(tfProvider)
 	p := shimv2.NewProvider(tfProvider)
 
 	// Create a Pulumi provider mapping
