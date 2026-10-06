@@ -11,7 +11,7 @@ jobs:
       # GoReleaser creates the GitHub release; the Go SDK tag is pushed.
       contents: write
       # GitHub OIDC token for trusted publishing: NuGet/login exchanges it for a
-      # short-lived nuget.org key, and npm publish uses it directly.
+      # short-lived nuget.org key; npm publish and the PyPI action use it directly.
       id-token: write
     steps:
       - name: Checkout
@@ -80,10 +80,11 @@ jobs:
           else
             npm publish --access public
           fi
+      # Trusted publishing: the action exchanges the job's OIDC token for a
+      # short-lived PyPI token, so no token is stored. pip skips a pre-release
+      # (0.3.0a1) unless asked with --pre.
       - name: Publish Python package
-        run: |
-          python -m pip install --upgrade twine
-          python -m twine upload --skip-existing sdk/python/bin/dist/*.tar.gz
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: sdk/python/bin/dist/
+          skip-existing: true

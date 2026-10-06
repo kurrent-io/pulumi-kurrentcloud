@@ -16,7 +16,7 @@ CHANGELOG
   `github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud`. (breaking for Go)
 - The Go SDK is now tagged `sdk/vX.Y.Z` on every release, so `go get` resolves each version. The old
   provider's Go SDK stopped at `sdk/v0.2.15`.
-- Release artifacts publish without stored keys: NuGet and npm through trusted publishing.
+- Release artifacts publish without stored keys: NuGet, npm and PyPI through trusted publishing.
 - Inherited the upstream in-place `projectionLevel` update behavior (no longer forces cluster replacement).
 
 ## 0.1.2 (Initial release)
