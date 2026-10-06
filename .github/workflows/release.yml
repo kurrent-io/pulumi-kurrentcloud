@@ -69,9 +69,32 @@ jobs:
         with:
           # nuget.org profile name (not email) of the trusted-publishing policy owner.
           user: ${{ vars.NUGET_USER }}
+      # No --skip-duplicate: nuget.org also answers 409 when it refuses a new ID under a
+      # reserved prefix, and --skip-duplicate reports that as success. Instead, a version
+      # nuget.org already lists is skipped, so a re-run after a later step failed gets past
+      # NuGet; anything else is pushed and fails loudly. The listing can lag a fresh push by
+      # some minutes, so re-run a failed release only after that.
       - name: Push NuGet package
+        env:
+          NUGET_API_KEY: ${{ steps.nuget_login.outputs.NUGET_API_KEY }}
         run: |
-          dotnet nuget push nuget/**/*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ steps.nuget_login.outputs.NUGET_API_KEY }}
+          shopt -s nullglob
+          pkgs=(nuget/*.nupkg)
+          if [[ ${#pkgs[@]} -eq 0 ]]; then
+            echo "::error::no .nupkg in nuget/"
+            exit 1
+          fi
+          for pkg in "${pkgs[@]}"; do
+            nuspec=$(unzip -p "$pkg" '*.nuspec')
+            id=$(sed -n 's:.*<id>\(.*\)</id>.*:\1:p' <<<"$nuspec" | head -n 1)
+            version=$(sed -n 's:.*<version>\(.*\)</version>.*:\1:p' <<<"$nuspec" | head -n 1)
+            if curl -fsS "https://api.nuget.org/v3-flatcontainer/${id,,}/index.json" 2>/dev/null |
+              jq -e --arg v "${version,,}" '.versions | index($v) != null' >/dev/null; then
+              echo "$id $version is already on nuget.org; skipping the push."
+              continue
+            fi
+            dotnet nuget push "$pkg" --source https://api.nuget.org/v3/index.json --api-key "$NUGET_API_KEY"
+          done
       # Trusted publishing: npm exchanges the job's OIDC token itself and adds
       # provenance, so no token is stored. A pre-release (version with '-') goes to
       # the `next` dist-tag, so a plain `npm install` never picks it up.

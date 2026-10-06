@@ -57,6 +57,13 @@ build_nodejs:: install_plugins tfgen # build the node sdk
 build_python:: PYPI_VERSION := $(shell pulumictl get version --omit-commit-hash --language python)
 build_python:: install_plugins tfgen # build the python sdk
 	$(WORKING_DIR)/bin/$(TFGEN) python --overlays provider/overlays/python --out sdk/python/
+	# The bridge's generator imports pkg_resources, which current setuptools no longer ships, so
+	# the SDK fails to import. Read our version with importlib.metadata, as newer generators do.
+	sed -i.bak -e 's/^import pkg_resources$$/import importlib.metadata/' \
+		-e 's/pkg_resources\.require(root_package)\[0\]\.version/importlib.metadata.version(root_package)/' \
+		-e 's/# pkg_resources uses setuptools to inspect/# importlib.metadata inspects/' \
+		sdk/python/pulumi_kurrentcloud/_utilities.py && rm sdk/python/pulumi_kurrentcloud/_utilities.py.bak
+	! grep -n 'pkg_resources' sdk/python/pulumi_kurrentcloud/_utilities.py
 	cd sdk/python/ && \
         cat ../../readme/README.md ../../readme/python.md > ./README.md && \
         python3 setup.py clean --all 2>/dev/null && \

@@ -9,7 +9,7 @@ CHANGELOG
   `EventStore/terraform-provider-eventstorecloud` v1.6.0).
 - **New resource:** `ManagedClusterReplicaset` — read-only replica sets attached to a managed cluster.
 - Renamed the Pulumi package, resource tokens, namespaces, and SDK packages to `kurrentcloud` /
-  `@kurrent/pulumi-kurrentcloud` / `pulumi_kurrentcloud` / `Pulumi.KurrentCloud`. Existing stacks
+  `@kurrent/pulumi-kurrentcloud` / `pulumi_kurrentcloud` / `Kurrent.Pulumi.KurrentCloud`. Existing stacks
   migrate without resource replacement via Pulumi aliases — see [MIGRATION.md](./MIGRATION.md). (breaking)
 - Moved the repository to `kurrent-io/pulumi-kurrentcloud` (renamed from `pulumi-eventstorecloud`; the old
   URLs redirect). The Go SDK module is now `github.com/kurrent-io/pulumi-kurrentcloud/sdk`, imported as
@@ -17,6 +17,10 @@ CHANGELOG
 - The Go SDK is now tagged `sdk/vX.Y.Z` on every release, so `go get` resolves each version. The old
   provider's Go SDK stopped at `sdk/v0.2.15`.
 - Release artifacts publish without stored keys: NuGet, npm and PyPI through trusted publishing.
+- The .NET package and namespace are `Kurrent.Pulumi.KurrentCloud`. Pulumi has reserved the `Pulumi.`
+  prefix on nuget.org, so a new `Pulumi.KurrentCloud` package cannot be created. (breaking for .NET)
+- The Python SDK reads its version with `importlib.metadata` instead of `pkg_resources`, which current
+  `setuptools` no longer ships; importing the SDK failed in a fresh environment.
 - Inherited the upstream in-place `projectionLevel` update behavior (no longer forces cluster replacement).
 
 ## 0.1.2 (Initial release)

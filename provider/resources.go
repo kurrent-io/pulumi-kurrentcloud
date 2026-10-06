@@ -154,6 +154,9 @@ func Provider() tfbridge.ProviderInfo {
 			Requires: map[string]string{
 				"pulumi": ">=3.0.0,<4.0.0",
 			},
+			// _utilities.py reads the version with importlib.metadata (see build_python in the
+			// Makefile), which the standard library has only from Python 3.8.
+			PythonRequires: ">=3.8",
 		},
 		Golang: &tfbridge.GolangInfo{
 			// GetModuleMajorVersion adds /vN to the import path from v2.0.0 on. The `module`
@@ -167,6 +170,9 @@ func Provider() tfbridge.ProviderInfo {
 			GenerateResourceContainerTypes: true,
 		},
 		CSharp: &tfbridge.CSharpInfo{
+			// The NuGet ID is <RootNamespace>.KurrentCloud. Pulumi has reserved the "Pulumi."
+			// prefix on nuget.org, so a new Pulumi.KurrentCloud package is refused.
+			RootNamespace: "Kurrent.Pulumi",
 			PackageReferences: map[string]string{
 				"Pulumi":                       "3.*",
 				"System.Collections.Immutable": "5.0.0",

@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.KurrentCloud
+namespace Kurrent.Pulumi.KurrentCloud
 {
     /// <summary>
     /// The provider type for the kurrentcloud package. By default, resources use package-wide configuration

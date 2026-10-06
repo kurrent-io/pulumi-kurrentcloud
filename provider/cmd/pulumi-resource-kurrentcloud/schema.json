@@ -30,7 +30,8 @@
                 "index": "index",
                 "kurrentcloud": "KurrentCloud"
             },
-            "compatibility": "tfbridge20"
+            "compatibility": "tfbridge20",
+            "rootNamespace": "Kurrent.Pulumi"
         },
         "go": {
             "importBasePath": "github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud",
@@ -52,6 +53,7 @@
             "disableUnionOutputTypes": true
         },
         "python": {
+            "pythonRequires": "\u003e=3.8",
             "requires": {
                 "pulumi": "\u003e=3.0.0,\u003c4.0.0"
             },

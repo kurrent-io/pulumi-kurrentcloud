@@ -17,7 +17,7 @@ that it is generated from. This guide covers upgrading an existing Pulumi progra
 | npm package | `@eventstore/pulumi-eventstorecloud` | `@kurrent/pulumi-kurrentcloud` |
 | Python package | `pulumi_eventstorecloud` | `pulumi_kurrentcloud` |
 | Go SDK package | `github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud` | `github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud` |
-| .NET package / namespace | `Pulumi.EventStoreCloud` | `Pulumi.KurrentCloud` |
+| .NET package / namespace | `Pulumi.EventStoreCloud` | `Kurrent.Pulumi.KurrentCloud` |
 | Config namespace | `eventstorecloud:token`, … | `kurrentcloud:token`, … |
 
 The provider configuration **keys** (`token`, `organizationId`, …) and the `ESC_*` environment
@@ -69,7 +69,7 @@ pip uninstall pulumi_eventstorecloud && pip install pulumi_kurrentcloud
 **.NET**
 ```bash
 dotnet remove package Pulumi.EventStoreCloud
-dotnet add package Pulumi.KurrentCloud
+dotnet add package Kurrent.Pulumi.KurrentCloud
 ```
 
 ### 3. Update config namespace (if you use `pulumi config`)
