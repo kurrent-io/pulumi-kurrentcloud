@@ -7,12 +7,14 @@
         "kurrentcloud",
         "kurrent",
         "eventstore",
-        "eventstorecloud"
+        "eventstorecloud",
+        "category/cloud"
     ],
     "homepage": "https://www.kurrent.io",
     "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`kurrentcloud` Terraform Provider](https://github.com/kurrent-io/terraform-provider-kurrentcloud).",
-    "repository": "https://github.com/kurrent-io/pulumi-eventstorecloud",
+    "repository": "https://github.com/kurrent-io/pulumi-kurrentcloud",
+    "logoUrl": "https://raw.githubusercontent.com/kurrent-io/pulumi-kurrentcloud/main/assets/logo.svg",
     "pluginDownloadURL": "github://api.github.com/kurrent-io",
     "publisher": "Kurrent",
     "meta": {
@@ -28,17 +30,18 @@
                 "index": "index",
                 "kurrentcloud": "KurrentCloud"
             },
-            "compatibility": "tfbridge20"
+            "compatibility": "tfbridge20",
+            "rootNamespace": "Kurrent.Pulumi"
         },
         "go": {
-            "importBasePath": "github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud",
+            "importBasePath": "github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud",
             "generateResourceContainerTypes": true,
             "generateExtraInputTypes": true
         },
         "nodejs": {
-            "packageName": "@kurrent-io/pulumi-kurrentcloud",
+            "packageName": "@kurrent/pulumi-kurrentcloud",
             "packageDescription": "A Pulumi package for creating and managing Kurrent Cloud resources.",
-            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/kurrent-io/terraform-provider-kurrentcloud)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-kurrentcloud` repo](https://github.com/kurrent-io/pulumi-eventstorecloud/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-kurrentcloud` repo](https://github.com/kurrent-io/terraform-provider-kurrentcloud/issues).",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/kurrent-io/terraform-provider-kurrentcloud)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-kurrentcloud` repo](https://github.com/kurrent-io/pulumi-kurrentcloud/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-kurrentcloud` repo](https://github.com/kurrent-io/terraform-provider-kurrentcloud/issues).",
             "dependencies": {
                 "@pulumi/pulumi": "^3.0.0"
             },
@@ -50,10 +53,11 @@
             "disableUnionOutputTypes": true
         },
         "python": {
+            "pythonRequires": "\u003e=3.8",
             "requires": {
                 "pulumi": "\u003e=3.0.0,\u003c4.0.0"
             },
-            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/kurrent-io/terraform-provider-kurrentcloud)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-kurrentcloud` repo](https://github.com/kurrent-io/pulumi-eventstorecloud/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-kurrentcloud` repo](https://github.com/kurrent-io/terraform-provider-kurrentcloud/issues).",
+            "readme": "\u003e This provider is a derived work of the [Terraform Provider](https://github.com/kurrent-io/terraform-provider-kurrentcloud)\n\u003e distributed under [MPL 2.0](https://www.mozilla.org/en-US/MPL/2.0/). If you encounter a bug or missing feature,\n\u003e first check the [`pulumi-kurrentcloud` repo](https://github.com/kurrent-io/pulumi-kurrentcloud/issues); however, if that doesn't turn up anything,\n\u003e please consult the source [`terraform-provider-kurrentcloud` repo](https://github.com/kurrent-io/terraform-provider-kurrentcloud/issues).",
             "compatibility": "tfbridge20",
             "pyproject": {}
         }

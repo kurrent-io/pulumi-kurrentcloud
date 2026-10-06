@@ -2,18 +2,17 @@ PROJECT_NAME := Kurrent Cloud Package
 
 SHELL            := /bin/bash
 PACK             := kurrentcloud
-# PROJECT is the Go module path of the provider. It is intentionally kept at the
-# historical EventStore/pulumi-eventstorecloud path (the repository has not been
-# renamed) even though the Pulumi package (PACK) is now "kurrentcloud".
-PROJECT          := github.com/EventStore/pulumi-eventstorecloud
-NODE_MODULE_NAME := @kurrent-io/pulumi-${PACK}
+# PROJECT is the Go module path of the provider. It follows the repository,
+# renamed from EventStore/pulumi-eventstorecloud to kurrent-io/pulumi-kurrentcloud.
+PROJECT          := github.com/kurrent-io/pulumi-kurrentcloud
+NODE_MODULE_NAME := @kurrent/pulumi-${PACK}
 TF_NAME          := ${PACK}
 PROVIDER_PATH    := provider
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
 
 TFGEN           := pulumi-tfgen-${PACK}
 PROVIDER        := pulumi-resource-${PACK}
-VERSION         := $(shell pulumictl get version)
+VERSION         := $(shell pulumictl get version --omit-commit-hash)
 
 TESTPARALLELISM := 4
 
@@ -43,7 +42,7 @@ provider:: tfgen install_plugins # build the provider binary
 
 build_sdks:: install_plugins provider build_nodejs build_python build_go build_dotnet # build all the sdks
 
-build_nodejs:: VERSION := $(shell pulumictl get version --language javascript)
+build_nodejs:: VERSION := $(shell pulumictl get version --omit-commit-hash --language javascript)
 build_nodejs:: install_plugins tfgen # build the node sdk
 	$(WORKING_DIR)/bin/$(TFGEN) nodejs --overlays provider/overlays/nodejs --out sdk/nodejs/
 	cd sdk/nodejs/ && \
@@ -55,9 +54,16 @@ build_nodejs:: install_plugins tfgen # build the node sdk
 		mkdir ./bin/scripts && cp ./scripts/install-pulumi-plugin.js ./bin/scripts && \
     	sed -i.bak -e "s/\$${VERSION}/$(VERSION)/g" ./bin/package.json
 
-build_python:: PYPI_VERSION := $(shell pulumictl get version --language python)
+build_python:: PYPI_VERSION := $(shell pulumictl get version --omit-commit-hash --language python)
 build_python:: install_plugins tfgen # build the python sdk
 	$(WORKING_DIR)/bin/$(TFGEN) python --overlays provider/overlays/python --out sdk/python/
+	# The bridge's generator imports pkg_resources, which current setuptools no longer ships, so
+	# the SDK fails to import. Read our version with importlib.metadata, as newer generators do.
+	sed -i.bak -e 's/^import pkg_resources$$/import importlib.metadata/' \
+		-e 's/pkg_resources\.require(root_package)\[0\]\.version/importlib.metadata.version(root_package)/' \
+		-e 's/# pkg_resources uses setuptools to inspect/# importlib.metadata inspects/' \
+		sdk/python/pulumi_kurrentcloud/_utilities.py && rm sdk/python/pulumi_kurrentcloud/_utilities.py.bak
+	! grep -n 'pkg_resources' sdk/python/pulumi_kurrentcloud/_utilities.py
 	cd sdk/python/ && \
         cat ../../readme/README.md ../../readme/python.md > ./README.md && \
         python3 setup.py clean --all 2>/dev/null && \
@@ -66,10 +72,13 @@ build_python:: install_plugins tfgen # build the python sdk
         rm ./bin/setup.py.bak && \
         cd ./bin && python3 setup.py build sdist
 
-build_dotnet:: DOTNET_VERSION := $(shell pulumictl get version --language dotnet)
+build_dotnet:: DOTNET_VERSION := $(shell pulumictl get version --omit-commit-hash --language dotnet)
 build_dotnet:: install_plugins tfgen # build the dotnet sdk
-	pulumictl get version --language dotnet
+	pulumictl get version --omit-commit-hash --language dotnet
 	$(WORKING_DIR)/bin/$(TFGEN) dotnet --overlays provider/overlays/dotnet --out sdk/dotnet/
+	# The generator saves whatever LogoURL serves as logo.png, but LogoURL is the SVG the
+	# Registry wants and a NuGet icon must be PNG or JPEG: use the committed PNG instead.
+	cp assets/logo.png sdk/dotnet/logo.png
 	cd sdk/dotnet/ && \
         cat ../../readme/README.md ../../readme/dotnet.md ../../readme/get-plugin.md > ./README.md && \
 		echo "${DOTNET_VERSION}" >version.txt && \

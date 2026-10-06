@@ -1,4 +1,6 @@
 version: 2
+# Pinned rather than taken from the git remote, which may still use the old repository name.
+project_name: pulumi-kurrentcloud
 archives:
 - id: archive
   name_template: '{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}'
@@ -21,12 +23,15 @@ builds:
   - windows
   - linux
   ldflags:
-  - -X github.com/EventStore/pulumi-eventstorecloud/provider/pkg/version.Version={{.Tag}}
+  - -X github.com/kurrent-io/pulumi-kurrentcloud/provider/pkg/version.Version={{.Tag}}
   main: ./cmd/pulumi-resource-kurrentcloud/
 changelog:
   disable: true
 release:
   disable: false
+  # A tag with a pre-release suffix (v0.3.0-alpha.1) makes a GitHub pre-release,
+  # which never becomes the repo's "latest" release that the Pulumi Registry follows.
+  prerelease: auto
   extra_files:
     - glob: sdk/python/bin/dist/pulumi_kurrentcloud-*.tar.gz
     - glob: nuget/*.nupkg

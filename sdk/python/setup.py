@@ -38,7 +38,7 @@ def readme():
 
 
 setup(name='pulumi_kurrentcloud',
-      python_requires='>=3.7',
+      python_requires='>=3.8',
       version=VERSION,
       description="A Pulumi package for creating and managing Kurrent Cloud resources.",
       long_description=readme(),
@@ -46,10 +46,10 @@ setup(name='pulumi_kurrentcloud',
       cmdclass={
           'install': InstallPluginCommand,
       },
-      keywords='pulumi kurrentcloud kurrent eventstore eventstorecloud',
+      keywords='pulumi kurrentcloud kurrent eventstore eventstorecloud category/cloud',
       url='https://www.kurrent.io',
       project_urls={
-          'Repository': 'https://github.com/kurrent-io/pulumi-eventstorecloud'
+          'Repository': 'https://github.com/kurrent-io/pulumi-kurrentcloud'
       },
       license='Apache-2.0',
       packages=find_packages(),

@@ -8,22 +8,12 @@ layout: package
 
 The Kurrent Cloud provider is available as a package in all Pulumi languages:
 
-- JavaScript/TypeScript: [`@kurrent-io/pulumi-kurrentcloud`](https://www.npmjs.com/package/@kurrent-io/pulumi-kurrentcloud)
+- JavaScript/TypeScript: [`@kurrent/pulumi-kurrentcloud`](https://www.npmjs.com/package/@kurrent/pulumi-kurrentcloud)
 - Python: [`pulumi_kurrentcloud`](https://pypi.org/project/pulumi-kurrentcloud/)
-- Go: [`github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud`](https://github.com/kurrent-io/pulumi-eventstorecloud)
-- .NET: [`Pulumi.KurrentCloud`](https://www.nuget.org/packages/Pulumi.KurrentCloud)
+- Go: [`github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud`](https://github.com/kurrent-io/pulumi-kurrentcloud)
+- .NET: [`Kurrent.Pulumi.KurrentCloud`](https://www.nuget.org/packages/Kurrent.Pulumi.KurrentCloud)
 
 ## Setup
-
-### Download the provider
-
-For projects that use .NET and Go Pulumi SDK you have to install the provider before trying to update the stack.
-
-Use the following command to add the plugin to your environment:
-
-```
-pulumi plugin install resource kurrentcloud --server github://api.github.com/kurrent-io
-```
 
 ### Configure the provider
 

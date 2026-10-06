@@ -1,11 +1,11 @@
 Install the NodeJS SDK using either `npm`:
 
 ```bash
-$ npm install @kurrent-io/pulumi-kurrentcloud
+$ npm install @kurrent/pulumi-kurrentcloud
 ```
 
 or `yarn`:
 
 ```bash
-$ yarn add @kurrent-io/pulumi-kurrentcloud
+$ yarn add @kurrent/pulumi-kurrentcloud
 ```

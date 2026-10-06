@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Immutable;
 
-namespace Pulumi.KurrentCloud
+namespace Kurrent.Pulumi.KurrentCloud
 {
     public static class Config
     {

@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="Pulumi" Version="3.*" />
-    <PackageReference Include="Pulumi.KurrentCloud" Version="1.*" />
+    <PackageReference Include="Kurrent.Pulumi.KurrentCloud" Version="0.*-*" />
     <PackageReference Include="Pulumi.Gcp" Version="6.10.0" />
   </ItemGroup>
 

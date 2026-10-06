@@ -1,9 +1,9 @@
-module github.com/EventStore/pulumi-eventstorecloud/test/live
+module github.com/kurrent-io/pulumi-kurrentcloud/test/live
 
 go 1.24.0
 
 require (
-	github.com/EventStore/pulumi-eventstorecloud/sdk v0.0.0-00010101000000-000000000000
+	github.com/kurrent-io/pulumi-kurrentcloud/sdk v0.0.0-00010101000000-000000000000
 	github.com/pulumi/pulumi-aws/sdk/v6 v6.83.4
 	github.com/pulumi/pulumi/sdk/v3 v3.175.0
 )
@@ -98,4 +98,4 @@ require (
 	lukechampine.com/frand v1.5.1 // indirect
 )
 
-replace github.com/EventStore/pulumi-eventstorecloud/sdk => ../../sdk
+replace github.com/kurrent-io/pulumi-kurrentcloud/sdk => ../../sdk

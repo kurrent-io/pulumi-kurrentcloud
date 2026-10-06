@@ -1,7 +1,7 @@
 {
     "name": "pulumi-kurrentcloud",
-    "version": "1.0.0",
-    "repository": "git@github.com/kurrent-io/pulumi-eventstorecloud",
+    "version": "0.3.0",
+    "repository": "git@github.com/kurrent-io/pulumi-kurrentcloud",
     "author": "Kurrent Cloud Team <cloud@kurrent.io>",
     "license": "Apache-2.0",
     "dependencies": {

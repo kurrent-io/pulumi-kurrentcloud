@@ -14,10 +14,10 @@ that it is generated from. This guide covers upgrading an existing Pulumi progra
 |---|---|---|
 | Plugin | `eventstorecloud` | `kurrentcloud` |
 | Resource type tokens | `eventstorecloud:index/project:Project`, … | `kurrentcloud:index/project:Project`, … |
-| npm package | `@eventstore/pulumi-eventstorecloud` | `@kurrent-io/pulumi-kurrentcloud` |
+| npm package | `@eventstore/pulumi-eventstorecloud` | `@kurrent/pulumi-kurrentcloud` |
 | Python package | `pulumi_eventstorecloud` | `pulumi_kurrentcloud` |
-| Go SDK package | `.../sdk/go/eventstorecloud` | `.../sdk/go/kurrentcloud` |
-| .NET package / namespace | `Pulumi.EventStoreCloud` | `Pulumi.KurrentCloud` |
+| Go SDK package | `github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud` | `github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud` |
+| .NET package / namespace | `Pulumi.EventStoreCloud` | `Kurrent.Pulumi.KurrentCloud` |
 | Config namespace | `eventstorecloud:token`, … | `kurrentcloud:token`, … |
 
 The provider configuration **keys** (`token`, `organizationId`, …) and the `ESC_*` environment
@@ -44,11 +44,11 @@ pulumi plugin install resource kurrentcloud --server github://api.github.com/kur
 **TypeScript / JavaScript**
 ```bash
 npm uninstall @eventstore/pulumi-eventstorecloud
-npm install @kurrent-io/pulumi-kurrentcloud
+npm install @kurrent/pulumi-kurrentcloud
 ```
 ```diff
 - import * as esc from "@eventstore/pulumi-eventstorecloud";
-+ import * as kurrent from "@kurrent-io/pulumi-kurrentcloud";
++ import * as kurrent from "@kurrent/pulumi-kurrentcloud";
 ```
 
 **Python**
@@ -63,13 +63,13 @@ pip uninstall pulumi_eventstorecloud && pip install pulumi_kurrentcloud
 **Go**
 ```diff
 - esc "github.com/EventStore/pulumi-eventstorecloud/sdk/go/eventstorecloud"
-+ kurrent "github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud"
++ kurrent "github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud"
 ```
 
 **.NET**
 ```bash
 dotnet remove package Pulumi.EventStoreCloud
-dotnet add package Pulumi.KurrentCloud
+dotnet add package Kurrent.Pulumi.KurrentCloud
 ```
 
 ### 3. Update config namespace (if you use `pulumi config`)

@@ -74,7 +74,7 @@ To test your changes before committing them:
 6. Install the local version of the TypeScript SDK
 
     ```bash
-    yarn add @kurrent-io/pulumi-kurrentcloud@file:../sdk/nodejs
+    yarn add @kurrent/pulumi-kurrentcloud@file:../sdk/nodejs
     ```
 
 7. Create a new stack

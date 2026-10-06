@@ -19,7 +19,7 @@ The following configuration points are available for the `kurrentcloud` provider
 Use `go get` to grab the latest version of the library
 
 ```bash
-$ go get github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud
+$ go get github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud
 ```
 
 ### Get the plugin
@@ -30,12 +30,12 @@ Use the following command to add the plugin to your environment:
 
 ```
 pulumi plugin install resource kurrentcloud [version] \
-  --server https://github.com/kurrent-io/pulumi-eventstorecloud/releases/download/[version]
+  --server https://github.com/kurrent-io/pulumi-kurrentcloud/releases/download/[version]
 ```
 
 Example:
 
 ```
-pulumi plugin install resource kurrentcloud v1.0.0 \
-  --server https://github.com/kurrent-io/pulumi-eventstorecloud/releases/download/v1.0.0
+pulumi plugin install resource kurrentcloud v0.3.0 \
+  --server https://github.com/kurrent-io/pulumi-kurrentcloud/releases/download/v0.3.0
 ```

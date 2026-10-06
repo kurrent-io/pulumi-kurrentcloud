@@ -1,5 +1,5 @@
 import * as pulumi from "@pulumi/pulumi";
-import * as kurrent from "@kurrent-io/pulumi-kurrentcloud";
+import * as kurrent from "@kurrent/pulumi-kurrentcloud";
 import * as awsx from "@pulumi/awsx";
 import * as aws from "@pulumi/aws";
 

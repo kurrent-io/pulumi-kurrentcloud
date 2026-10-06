@@ -1,9 +1,9 @@
 using Kurrent.Gcp;
 using Pulumi;
-using Pulumi.KurrentCloud;
+using Kurrent.Pulumi.KurrentCloud;
 using Pulumi.Gcp.Compute;
-using Network = Pulumi.KurrentCloud.Network;
-using NetworkArgs = Pulumi.KurrentCloud.NetworkArgs;
+using Network = Kurrent.Pulumi.KurrentCloud.Network;
+using NetworkArgs = Kurrent.Pulumi.KurrentCloud.NetworkArgs;
 
 class MyStack : Stack {
     public MyStack() {

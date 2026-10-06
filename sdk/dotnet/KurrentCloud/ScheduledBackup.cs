@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.KurrentCloud
+namespace Kurrent.Pulumi.KurrentCloud
 {
     [KurrentCloudResourceType("kurrentcloud:index/scheduledBackup:ScheduledBackup")]
     public partial class ScheduledBackup : global::Pulumi.CustomResource
