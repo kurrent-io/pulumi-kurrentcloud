@@ -19,8 +19,8 @@ package main
 import (
 	_ "embed"
 
-	eventstorecloud "github.com/EventStore/pulumi-eventstorecloud/provider"
-	"github.com/EventStore/pulumi-eventstorecloud/provider/pkg/version"
+	eventstorecloud "github.com/kurrent-io/pulumi-kurrentcloud/provider"
+	"github.com/kurrent-io/pulumi-kurrentcloud/provider/pkg/version"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 )
 

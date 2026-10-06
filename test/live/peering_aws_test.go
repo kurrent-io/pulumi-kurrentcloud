@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud"
+	"github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud"
 	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws"
 	"github.com/pulumi/pulumi-aws/sdk/v6/go/aws/ec2"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"

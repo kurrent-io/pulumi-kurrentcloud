@@ -7,7 +7,7 @@
     <Description>A Pulumi package for creating and managing Kurrent Cloud resources.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://www.kurrent.io</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/kurrent-io/pulumi-eventstorecloud</RepositoryUrl>
+    <RepositoryUrl>https://github.com/kurrent-io/pulumi-kurrentcloud</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
 
     <TargetFramework>net6.0</TargetFramework>

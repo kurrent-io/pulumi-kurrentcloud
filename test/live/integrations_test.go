@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud"
+	"github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 

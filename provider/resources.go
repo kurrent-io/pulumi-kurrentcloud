@@ -19,7 +19,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/EventStore/pulumi-eventstorecloud/provider/pkg/version"
+	"github.com/kurrent-io/pulumi-kurrentcloud/provider/pkg/version"
 	"github.com/kurrent-io/terraform-provider-kurrentcloud/v2/esc"
 	"github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfbridge"
 	shim "github.com/pulumi/pulumi-terraform-bridge/v3/pkg/tfshim"
@@ -112,10 +112,10 @@ func Provider() tfbridge.ProviderInfo {
 		DisplayName:          "Kurrent Cloud",
 		Publisher:            "Kurrent",
 		Description:          "A Pulumi package for creating and managing Kurrent Cloud resources.",
-		Keywords:             []string{"pulumi", "kurrentcloud", "kurrent", "eventstore", "eventstorecloud"},
+		Keywords:             []string{"pulumi", "kurrentcloud", "kurrent", "eventstore", "eventstorecloud", "category/cloud"},
 		License:              "Apache-2.0",
 		Homepage:             "https://www.kurrent.io",
-		Repository:           "https://github.com/kurrent-io/pulumi-eventstorecloud",
+		Repository:           "https://github.com/kurrent-io/pulumi-kurrentcloud",
 		PluginDownloadURL:    "github://api.github.com/kurrent-io",
 		GitHubOrg:            "kurrent-io",
 		Config:               map[string]*tfbridge.SchemaInfo{},
@@ -147,7 +147,7 @@ func Provider() tfbridge.ProviderInfo {
 				"@types/node": "^10.0.0", // so we can access strongly typed node definitions.
 				"@types/mime": "^2.0.0",
 			},
-			PackageName: "@kurrent-io/pulumi-kurrentcloud",
+			PackageName: "@kurrent/pulumi-kurrentcloud",
 		},
 		Python: &tfbridge.PythonInfo{
 			Requires: map[string]string{
@@ -155,11 +155,10 @@ func Provider() tfbridge.ProviderInfo {
 			},
 		},
 		Golang: &tfbridge.GolangInfo{
-			// NOTE: the SDK Go module path (sdk/go.mod) is still rooted at the historical
-			// EventStore/pulumi-eventstorecloud repository. Only the leaf package is renamed to
-			// kurrentcloud here. Renaming the repository + Go module path is a tracked follow-up.
+			// GetModuleMajorVersion adds /vN to the import path from v2.0.0 on. The `module`
+			// line in sdk/go.mod does not follow automatically and must gain the same /vN.
 			ImportBasePath: filepath.Join(
-				"github.com/EventStore/pulumi-eventstorecloud/sdk",
+				"github.com/kurrent-io/pulumi-kurrentcloud/sdk",
 				tfbridge.GetModuleMajorVersion(version.Version),
 				"go",
 				mainPkg,

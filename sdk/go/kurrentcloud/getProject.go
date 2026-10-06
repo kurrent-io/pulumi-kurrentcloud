@@ -7,7 +7,7 @@ import (
 	"context"
 	"reflect"
 
-	"github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud/internal"
+	"github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 

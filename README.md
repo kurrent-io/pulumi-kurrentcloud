@@ -11,6 +11,13 @@ via the Pulumi Terraform Bridge, so its resources track the Terraform provider.
 > replacing** any cloud resources.
 > See [MIGRATION.md](./MIGRATION.md).
 
+> **This repository was renamed from `pulumi-eventstorecloud`.** The `eventstorecloud` provider
+> (v0.2.x) still installs from here, because GitHub redirects the old
+> `EventStore/pulumi-eventstorecloud` and `kurrent-io/pulumi-eventstorecloud` URLs to this
+> repository. **Never create a repository named `pulumi-eventstorecloud` under `kurrent-io` or
+> `EventStore`**: that removes the redirect and breaks every existing `eventstorecloud` install.
+> Fixes to v0.2.x are released only from a `release/v0.2` branch, never by tagging `main`.
+
 ## Installing
 
 ### Get the plugin
@@ -25,9 +32,9 @@ pulumi plugin install resource kurrentcloud --server github://api.github.com/kur
 ### Node.js (TypeScript/JavaScript)
 
 ```bash
-npm install @kurrent-io/pulumi-kurrentcloud
+npm install @kurrent/pulumi-kurrentcloud
 # or
-yarn add @kurrent-io/pulumi-kurrentcloud
+yarn add @kurrent/pulumi-kurrentcloud
 ```
 
 ### Python
@@ -39,7 +46,7 @@ pip install pulumi_kurrentcloud
 ### Go
 
 ```bash
-go get github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud
+go get github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud
 ```
 
 ### .NET
@@ -71,7 +78,7 @@ This provider mirrors the [Kurrent Cloud Terraform provider](https://github.com/
 
 ```typescript
 import * as pulumi from "@pulumi/pulumi";
-import * as kurrent from "@kurrent-io/pulumi-kurrentcloud";
+import * as kurrent from "@kurrent/pulumi-kurrentcloud";
 
 const project = new kurrent.Project("project", { name: "my-project" });
 

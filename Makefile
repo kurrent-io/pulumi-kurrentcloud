@@ -2,11 +2,10 @@ PROJECT_NAME := Kurrent Cloud Package
 
 SHELL            := /bin/bash
 PACK             := kurrentcloud
-# PROJECT is the Go module path of the provider. It is intentionally kept at the
-# historical EventStore/pulumi-eventstorecloud path (the repository has not been
-# renamed) even though the Pulumi package (PACK) is now "kurrentcloud".
-PROJECT          := github.com/EventStore/pulumi-eventstorecloud
-NODE_MODULE_NAME := @kurrent-io/pulumi-${PACK}
+# PROJECT is the Go module path of the provider. It follows the repository,
+# renamed from EventStore/pulumi-eventstorecloud to kurrent-io/pulumi-kurrentcloud.
+PROJECT          := github.com/kurrent-io/pulumi-kurrentcloud
+NODE_MODULE_NAME := @kurrent/pulumi-${PACK}
 TF_NAME          := ${PACK}
 PROVIDER_PATH    := provider
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version

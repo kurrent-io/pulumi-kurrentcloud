@@ -1,4 +1,4 @@
-module github.com/EventStore/pulumi-eventstorecloud/sdk
+module github.com/kurrent-io/pulumi-kurrentcloud/sdk
 
 go 1.24
 
