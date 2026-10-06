@@ -2,11 +2,10 @@ PROJECT_NAME := Kurrent Cloud Package
 
 SHELL            := /bin/bash
 PACK             := kurrentcloud
-# PROJECT is the Go module path of the provider. It is intentionally kept at the
-# historical EventStore/pulumi-eventstorecloud path (the repository has not been
-# renamed) even though the Pulumi package (PACK) is now "kurrentcloud".
-PROJECT          := github.com/EventStore/pulumi-eventstorecloud
-NODE_MODULE_NAME := @kurrent-io/pulumi-${PACK}
+# PROJECT is the Go module path of the provider. It follows the repository,
+# renamed from EventStore/pulumi-eventstorecloud to kurrent-io/pulumi-kurrentcloud.
+PROJECT          := github.com/kurrent-io/pulumi-kurrentcloud
+NODE_MODULE_NAME := @kurrent/pulumi-${PACK}
 TF_NAME          := ${PACK}
 PROVIDER_PATH    := provider
 VERSION_PATH     := ${PROVIDER_PATH}/pkg/version.Version
@@ -70,6 +69,9 @@ build_dotnet:: DOTNET_VERSION := $(shell pulumictl get version --language dotnet
 build_dotnet:: install_plugins tfgen # build the dotnet sdk
 	pulumictl get version --language dotnet
 	$(WORKING_DIR)/bin/$(TFGEN) dotnet --overlays provider/overlays/dotnet --out sdk/dotnet/
+	# The generator saves whatever LogoURL serves as logo.png, but LogoURL is the SVG the
+	# Registry wants and a NuGet icon must be PNG or JPEG: use the committed PNG instead.
+	cp assets/logo.png sdk/dotnet/logo.png
 	cd sdk/dotnet/ && \
         cat ../../readme/README.md ../../readme/dotnet.md ../../readme/get-plugin.md > ./README.md && \
 		echo "${DOTNET_VERSION}" >version.txt && \

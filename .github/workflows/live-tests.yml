@@ -84,6 +84,10 @@ jobs:
       PULUMI_CONFIG_PASSPHRASE: ""
     steps:
       - uses: actions/checkout@v4
+        with:
+          # pulumictl derives the version from tags. A shallow clone has none, the
+          # suspected cause of the tfgen panic in tfbridge.GetModuleMajorVersion.
+          fetch-depth: 0
       - uses: actions/setup-go@v5
         with:
           go-version: "1.25"

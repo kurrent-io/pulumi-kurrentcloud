@@ -7,6 +7,12 @@ jobs:
   build_and_deploy:
     name: build and publish
     runs-on: ubuntu-latest
+    permissions:
+      # GoReleaser creates the GitHub release; the Go SDK tag is pushed.
+      contents: write
+      # GitHub OIDC token for trusted publishing: NuGet/login exchanges it for a
+      # short-lived nuget.org key; npm publish and the PyPI action use it directly.
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -25,8 +31,11 @@ jobs:
       - name: Set up NodeJS
         uses: actions/setup-node@v4
         with:
+          # npm trusted publishing needs Node >= 22.14 and npm >= 11.5.1.
+          node-version: '24'
           registry-url: 'https://registry.npmjs.org'
-          always-auth: true
+      - name: Update npm for trusted publishing
+        run: npm install -g npm@^11.5.1
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -41,17 +50,41 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # sdk/go.mod lives in sdk/, so Go only sees a version through a tag named
+      # sdk/vX.Y.Z. Tagged right after the build succeeds, so a failed build publishes
+      # no Go version and a failed npm/NuGet/PyPI step does not hold Go back. A tag
+      # pushed with GITHUB_TOKEN starts no workflow, and `tags: '*'` does not match '/'.
+      - name: Tag Go SDK
+        run: |
+          git tag "sdk/${GITHUB_REF_NAME}" "${GITHUB_SHA}"
+          git push origin "sdk/${GITHUB_REF_NAME}"
+      # The temporary key is valid for one hour and one exchange, so log in right
+      # before the push rather than at the start of the job.
+      - name: NuGet login (trusted publishing)
+        id: nuget_login
+        uses: NuGet/login@v1
+        with:
+          # nuget.org profile name (not email) of the trusted-publishing policy owner.
+          user: ${{ vars.NUGET_USER }}
       - name: Push NuGet package
         run: |
-          dotnet nuget push nuget/**/*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.PULUMI_NUGET_KEY }}
+          dotnet nuget push nuget/**/*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ steps.nuget_login.outputs.NUGET_API_KEY }}
+      # Trusted publishing: npm exchanges the job's OIDC token itself and adds
+      # provenance, so no token is stored. A pre-release (version with '-') goes to
+      # the `next` dist-tag, so a plain `npm install` never picks it up.
       - name: Publish NPM package
-        run: (cd ${{ github.workspace }}/sdk/nodejs/bin && yarn publish --access public)
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Publish Python package
+        working-directory: sdk/nodejs/bin
         run: |
-          python -m pip install --upgrade twine
-          python -m twine upload --skip-existing sdk/python/bin/dist/*.tar.gz
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+          if [[ "${GITHUB_REF_NAME}" == *-* ]]; then
+            npm publish --access public --tag next
+          else
+            npm publish --access public
+          fi
+      # Trusted publishing: the action exchanges the job's OIDC token for a
+      # short-lived PyPI token, so no token is stored. pip skips a pre-release
+      # (0.3.0a1) unless asked with --pre.
+      - name: Publish Python package
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: sdk/python/bin/dist/
+          skip-existing: true

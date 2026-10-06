@@ -1,7 +1,7 @@
 package main
 
 import (
-	kurrent "github.com/EventStore/pulumi-eventstorecloud/sdk/go/kurrentcloud"
+	kurrent "github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud"
 	"github.com/pulumi/pulumi-gcp/sdk/v6/go/gcp/compute"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"

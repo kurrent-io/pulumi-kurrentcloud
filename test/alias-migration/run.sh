@@ -90,13 +90,13 @@ cat > package.json <<JSON
   "name": "alias-migration",
   "dependencies": {
     "@pulumi/pulumi": "^3.0.0",
-    "@kurrent-io/pulumi-kurrentcloud": "file:$LOCAL_SDK"
+    "@kurrent/pulumi-kurrentcloud": "file:$LOCAL_SDK"
   }
 }
 JSON
 
 cat > index.ts <<'TS'
-import * as kurrent from "@kurrent-io/pulumi-kurrentcloud";
+import * as kurrent from "@kurrent/pulumi-kurrentcloud";
 const project = new kurrent.Project("alias-project", { name: "alias-migration-test" });
 export const projectId = project.id;
 TS

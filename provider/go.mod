@@ -1,4 +1,4 @@
-module github.com/EventStore/pulumi-eventstorecloud/provider
+module github.com/kurrent-io/pulumi-kurrentcloud/provider
 
 go 1.25.8
 
