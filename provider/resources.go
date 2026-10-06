@@ -115,6 +115,7 @@ func Provider() tfbridge.ProviderInfo {
 		Keywords:             []string{"pulumi", "kurrentcloud", "kurrent", "eventstore", "eventstorecloud", "category/cloud"},
 		License:              "Apache-2.0",
 		Homepage:             "https://www.kurrent.io",
+		LogoURL:              "https://raw.githubusercontent.com/kurrent-io/pulumi-kurrentcloud/main/assets/logo.svg",
 		Repository:           "https://github.com/kurrent-io/pulumi-kurrentcloud",
 		PluginDownloadURL:    "github://api.github.com/kurrent-io",
 		GitHubOrg:            "kurrent-io",

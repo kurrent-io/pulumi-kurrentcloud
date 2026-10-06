@@ -14,6 +14,7 @@
     "license": "Apache-2.0",
     "attribution": "This Pulumi package is based on the [`kurrentcloud` Terraform Provider](https://github.com/kurrent-io/terraform-provider-kurrentcloud).",
     "repository": "https://github.com/kurrent-io/pulumi-kurrentcloud",
+    "logoUrl": "https://raw.githubusercontent.com/kurrent-io/pulumi-kurrentcloud/main/assets/logo.svg",
     "pluginDownloadURL": "github://api.github.com/kurrent-io",
     "publisher": "Kurrent",
     "meta": {
