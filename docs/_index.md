@@ -26,7 +26,7 @@ go get github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud
 {{% /choosable %}}
 {{% choosable language csharp %}}
 ```bash
-dotnet add package Pulumi.KurrentCloud
+dotnet add package Kurrent.Pulumi.KurrentCloud
 ```
 {{% /choosable %}}
 {{% choosable language yaml %}}
@@ -94,7 +94,7 @@ func main() {
 ```csharp
 using System.Collections.Generic;
 using Pulumi;
-using KurrentCloud = Pulumi.KurrentCloud;
+using KurrentCloud = Kurrent.Pulumi.KurrentCloud;
 
 return await Deployment.RunAsync(() =>
 {

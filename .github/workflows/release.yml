@@ -69,9 +69,11 @@ jobs:
         with:
           # nuget.org profile name (not email) of the trusted-publishing policy owner.
           user: ${{ vars.NUGET_USER }}
+      # No --skip-duplicate: nuget.org also answers 409 when it refuses a new ID under a
+      # reserved prefix, and --skip-duplicate reports that as success.
       - name: Push NuGet package
         run: |
-          dotnet nuget push nuget/**/*.nupkg --skip-duplicate --source https://api.nuget.org/v3/index.json --api-key ${{ steps.nuget_login.outputs.NUGET_API_KEY }}
+          dotnet nuget push nuget/**/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ steps.nuget_login.outputs.NUGET_API_KEY }}
       # Trusted publishing: npm exchanges the job's OIDC token itself and adds
       # provenance, so no token is stored. A pre-release (version with '-') goes to
       # the `next` dist-tag, so a plain `npm install` never picks it up.

@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
+using Pulumi;
 
-namespace Pulumi.KurrentCloud
+namespace Kurrent.Pulumi.KurrentCloud
 {
     [KurrentCloudResourceType("kurrentcloud:index/managedCluster:ManagedCluster")]
     public partial class ManagedCluster : global::Pulumi.CustomResource

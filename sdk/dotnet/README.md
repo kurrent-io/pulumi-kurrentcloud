@@ -16,7 +16,7 @@ The following configuration points are available for the `kurrentcloud` provider
 ### Install SDK
 
 
-Add the NuGet package `Pulumi.KurrentCloud` to your Pulumi project, which uses the .NET Pulumi SDK.
+Add the NuGet package `Kurrent.Pulumi.KurrentCloud` to your Pulumi project, which uses the .NET Pulumi SDK.
 ### Get the plugin
 
 For projects that use .NET and Go Pulumi SDK you have to install the provider before trying to update the stack.

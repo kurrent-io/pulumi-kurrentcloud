@@ -167,6 +167,9 @@ func Provider() tfbridge.ProviderInfo {
 			GenerateResourceContainerTypes: true,
 		},
 		CSharp: &tfbridge.CSharpInfo{
+			// The NuGet ID is <RootNamespace>.KurrentCloud. Pulumi has reserved the "Pulumi."
+			// prefix on nuget.org, so a new Pulumi.KurrentCloud package is refused.
+			RootNamespace: "Kurrent.Pulumi",
 			PackageReferences: map[string]string{
 				"Pulumi":                       "3.*",
 				"System.Collections.Immutable": "5.0.0",

@@ -56,7 +56,7 @@ go get github.com/kurrent-io/pulumi-kurrentcloud/sdk/go/kurrentcloud
 ### .NET
 
 ```bash
-dotnet add package Pulumi.KurrentCloud
+dotnet add package Kurrent.Pulumi.KurrentCloud
 ```
 
 ## Configuration
