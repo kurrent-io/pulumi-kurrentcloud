@@ -53,6 +53,7 @@
             "disableUnionOutputTypes": true
         },
         "python": {
+            "pythonRequires": "\u003e=3.8",
             "requires": {
                 "pulumi": "\u003e=3.0.0,\u003c4.0.0"
             },
