@@ -1,7 +1,7 @@
 CHANGELOG
 =========
 
-## 1.0.0 (unreleased)
+## 0.3.0 (unreleased)
 
 **Rebranded from `eventstorecloud` to `kurrentcloud`** to match the Kurrent Cloud Terraform provider.
 
@@ -28,7 +28,7 @@ CHANGELOG
 
 - Update to TF provider 1.5.9
 
-## 0.3.0
+## 0.3.0 (never tagged; `eventstorecloud` releases continued as 0.2.x)
 
 - Renamed the namespace to `EventStoreCloud` (breaking)
 
