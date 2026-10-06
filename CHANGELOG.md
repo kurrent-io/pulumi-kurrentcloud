@@ -8,10 +8,12 @@ CHANGELOG
 - **Service Account authentication**: new optional `clientSecret` (secret) and `identityKitUrl`
   provider config. When both `clientId` and `clientSecret` are set (or `ESC_CLIENT_ID` /
   `ESC_CLIENT_SECRET` via the environment), the provider authenticates with the OAuth2
-  client-credentials grant instead of the `token` refresh-token flow. Inherited from the upstream
-  Terraform provider (`features/pkce-and-sa-auth`).
-- Re-pointed the Terraform bridge to `kurrent-io/terraform-provider-kurrentcloud` v2.1.1 (was
-  `EventStore/terraform-provider-eventstorecloud` v1.6.0).
+  client-credentials grant instead of the `token` refresh-token flow.
+- Re-pointed the Terraform bridge to `kurrent-io/terraform-provider-kurrentcloud` at the commit released
+  as v3.1.0 (was `EventStore/terraform-provider-eventstorecloud` v1.6.0). That release keeps the Go module
+  path `…/v2`, so it is required as the pseudo-version `v2.1.2-0.20260729161653-f38d05aa017c`.
+- The AWS `gp2` disk type is no longer accepted, because the Kurrent Cloud API rejects it. Use `gp3`, which
+  requires `diskIops` and `diskThroughput`. (breaking)
 - **New resource:** `ManagedClusterReplicaset` — read-only replica sets attached to a managed cluster.
 - Renamed the Pulumi package, resource tokens, namespaces, and SDK packages to `kurrentcloud` /
   `@kurrent/pulumi-kurrentcloud` / `pulumi_kurrentcloud` / `Kurrent.Pulumi.KurrentCloud`. Existing stacks

@@ -127,21 +127,32 @@ outputs:
 
 ## Configuration
 
-The provider needs an access token and an organization ID. Create the access token in the *Access Tokens* section of the Kurrent Cloud console; the organization ID is on the organization's settings page. Set them with `pulumi config` as above, or with environment variables:
+The provider needs an organization ID and one set of credentials. The organization ID is on the organization's settings page in the Kurrent Cloud console. For credentials, use either:
+
+- **A Service Account** (recommended for automation): set `clientId` and `clientSecret` to the Service Account's credentials. When both are set, the provider uses them and ignores `token`.
+- **An access token**: create one in the *Access Tokens* section of the console and set `token`.
+
+Set them with `pulumi config` (`pulumi config set --secret kurrentcloud:clientSecret <YOUR_CLIENT_SECRET>`), or with environment variables:
 
 ```bash
-export ESC_TOKEN=<YOUR_ACCESS_TOKEN>
 export ESC_ORG_ID=<YOUR_ORGANIZATION_ID>
+# Service Account
+export ESC_CLIENT_ID=<YOUR_CLIENT_ID>
+export ESC_CLIENT_SECRET=<YOUR_CLIENT_SECRET>
+# or an access token
+export ESC_TOKEN=<YOUR_ACCESS_TOKEN>
 ```
 
 | Name | Required | Secret | Description |
 | --- | --- | --- | --- |
-| `token` | Yes | Yes | Access token from the Kurrent Cloud console. Environment variable: `ESC_TOKEN`. |
+| `token` | Unless `clientId` and `clientSecret` are set | Yes | Access token from the Kurrent Cloud console. Environment variable: `ESC_TOKEN`. |
 | `organizationId` | Yes | No | ID of the Kurrent Cloud organization to manage. Environment variable: `ESC_ORG_ID`. |
 | `url` | No | No | URL of the Kurrent Cloud API. Defaults to `https://api.eventstore.cloud`. Environment variable: `ESC_URL`. |
 | `tokenStore` | No | No | Local directory where access tokens are cached, shared with the Kurrent Cloud CLI. Defaults to `~/.esctf/tokens`. Environment variable: `ESC_TOKEN_STORE`. |
 | `identityProviderUrl` | No | No | Identity provider used to exchange the token. Leave unset unless Kurrent support asks you to change it. Environment variable: `ESC_IDENTITY_PROVIDER_URL`. |
-| `clientId` | No | No | OAuth client ID used with `identityProviderUrl`. Leave unset unless Kurrent support asks you to change it. Environment variable: `ESC_CLIENT_ID`. |
+| `clientId` | For a Service Account | No | Service Account client ID. Set together with `clientSecret`. Environment variable: `ESC_CLIENT_ID`. |
+| `clientSecret` | For a Service Account | Yes | Service Account client secret. When `clientId` and `clientSecret` are both set, they take priority over `token`. Environment variable: `ESC_CLIENT_SECRET`. |
+| `identityKitUrl` | No | No | Token endpoint for Service Account login. Defaults to `https://auth.kurrent.io`. Environment variable: `ESC_IDENTITY_KIT_URL`. |
 
 ## Migrating from `eventstorecloud`
 
