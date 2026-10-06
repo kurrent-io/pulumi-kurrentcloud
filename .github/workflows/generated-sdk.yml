@@ -1,0 +1,37 @@
+name: Generated SDK check
+
+# Go users get the SDK files committed at a release tag, not what the release
+# build regenerates. This fails a PR whose committed schema or Go SDK no longer
+# matches what the provider generates, so a release can never ship a stale Go SDK.
+on:
+  pull_request:
+    paths:
+      - "provider/**"
+      - "sdk/**"
+      - "Makefile"
+      - ".github/workflows/generated-sdk.yml"
+
+jobs:
+  go-sdk:
+    name: Schema and Go SDK are up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # pulumictl derives the version from tags.
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: provider/go.mod
+      - name: Install Pulumi CLI
+        uses: pulumi/actions@v6
+      - name: Install pulumictl
+        run: curl -L https://github.com/pulumi/pulumictl/releases/download/v0.0.49/pulumictl-v0.0.49-linux-amd64.tar.gz | sudo tar zx -C /usr/local/bin pulumictl
+      - name: Regenerate the schema and the Go SDK
+        run: make build_go
+      - name: Fail if anything changed
+        run: |
+          if ! git diff --exit-code -- provider/cmd/pulumi-resource-kurrentcloud/schema.json sdk/go; then
+            echo "::error::The committed schema or Go SDK is stale. Run 'make build' and commit the result."
+            exit 1
+          fi

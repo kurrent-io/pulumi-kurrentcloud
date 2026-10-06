@@ -27,6 +27,9 @@ changelog:
   disable: true
 release:
   disable: false
+  # A tag with a pre-release suffix (v1.0.0-alpha.1) makes a GitHub pre-release,
+  # which never becomes the repo's "latest" release that the Pulumi Registry follows.
+  prerelease: auto
   extra_files:
     - glob: sdk/python/bin/dist/pulumi_kurrentcloud-*.tar.gz
     - glob: nuget/*.nupkg
